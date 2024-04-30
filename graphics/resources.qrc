@@ -1,0 +1,7 @@
+<RCC>
+  <qresource prefix="ATM_graphics">
+    <file>atm_login_bg.png</file>
+    <file>atm_bg.png</file>
+    <file>atm_cash-point.png</file>
+  </qresource>
+</RCC>
