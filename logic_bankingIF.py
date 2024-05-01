@@ -90,7 +90,7 @@ class Banking_Interface(QMainWindow, Ui_ATM_Main):
         
         try:
             self.amount = float(self.amount)
-            if self.amount < 0:
+            if self.amount <= 0:
                 raise ValueError
         except ValueError:
             self.BANKIF_balance_error.setText(self.TRANSLATE("ATM_Main", "<html><head/><body><p><span style=\" font-size:12pt; color:#640000;\">Amount must be numeric and greater than 0.</span></p></body></html>"))

@@ -132,8 +132,8 @@ class Logic(Banking_Interface, Sign_Up):
         '''
         
         # Shows main login screen
+        self.ATM_login_error_blankForm.setText('')
         self.ATM_ad.setVisible(True)
-        self.ATM_forget_login_label.setVisible(True)
         self.ATM_login_background.setVisible(True)
         self.ATM_login_error_blankForm.setVisible(True)
         self.ATM_login_label.setVisible(True)
@@ -172,6 +172,7 @@ class Logic(Banking_Interface, Sign_Up):
         self.SIGNUP_cardnumber_label.setVisible(False)
         self.SIGNUP_deposit_entry.setVisible(False)
         self.SIGNUP_deposit_label.setVisible(False)
+        self.SIGNUP_error_label.setText('')
         self.SIGNUP_error_label.setVisible(False)
         self.SIGNUP_first_name_entry.setVisible(False)
         self.SIGNUP_first_name_label.setVisible(False)
