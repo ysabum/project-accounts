@@ -3,6 +3,7 @@ from graphics.resources import *
 from gui import *
 from logic_bankingIF import *
 from logic_signup import *
+
 import csv
 import os
 
@@ -14,13 +15,11 @@ class Logic(Banking_Interface, Sign_Up):
     
     def __init__(self) -> None:
         '''
-        Method to set default values for Logic object.
+        Initializes Logic object.
         '''
         
         Banking_Interface.__init__(self)
 
-        self.file_path_remove = 'account_information/account_information.csv'
-        
         # Hides banking interface by default
         self.BANKIF_amount_entry_deposit.setVisible(False)
         self.BANKIF_amount_entry_withdraw.setVisible(False)
@@ -54,9 +53,8 @@ class Logic(Banking_Interface, Sign_Up):
         self.SIGNUP_signup_message.setVisible(False)
         self.SIGNUP_username_entry.setVisible(False)
         self.SIGNUP_username_label.setVisible(False)
+        self.ATM_forget_login_label.setVisible(False) ### This is an unused asset.
         
-        # unused asset
-        self.ATM_forget_login_label.setVisible(False)
         
         # Button events
         self.ATM_signin_button.clicked.connect(lambda:self.submit())
@@ -75,7 +73,7 @@ class Logic(Banking_Interface, Sign_Up):
          
     def submit(self) -> None:
         '''
-        Method called when the submit button is pushed on the main login screen.
+        Method called when the sign in button is pushed on the main login screen.
         '''
     
         self.username = self.ATM_login_username_entry.text()
@@ -85,15 +83,19 @@ class Logic(Banking_Interface, Sign_Up):
             self.ATM_login_error_blankForm.setText(self.TRANSLATE("ATM_Main", "<html><head/><body><p><span style=\" font-size:9pt; color:#a10000;\">A username and password must be entered.</span></p></body></html>"))
         else:
             self.ATM_login_error_blankForm.setText('')
-            with open('account_information/logins.csv', 'r+') as logins:
-                self.logins_information = csv.reader(logins)
-                for individual_login_information in self.logins_information:
-                    individual_username, individual_password = individual_login_information[0], individual_login_information[1]
+
+            with open('account_information/logins.csv', 'r') as logins:
+                login_information = csv.reader(logins)
+                
+                for row in login_information:
+                    individual_username = row[0]
+                    individual_password = row[1]
+                    
                     if self.username == individual_username and self.password == individual_password:
-                        self.first_name = individual_login_information[2]
-                        self.last_name = individual_login_information[3]
-                        self.card_number = individual_login_information[4]
-                        self.pin = individual_login_information[5]
+                        self.first_name = row[2]
+                        self.last_name = row[3]
+                        self.card_number = row[4]
+                        self.pin = row[5]
                         
                         self.online_bank()
                     else:
@@ -106,21 +108,22 @@ class Logic(Banking_Interface, Sign_Up):
         Saves changes made to balance and updates account_information.csv.
         '''
         
-        self.new_account_information = [self.card_number, self.pin, f'{self.balance:.2f}']
+        add_new_account_information = [self.card_number, self.pin, f'{self.balance:.2f}']
         
-        with open('account_information/account_information.csv', 'r+') as account_info:
-            with open('account_information/new_account_information.csv', 'w', newline = '') as new_account_info:
-                self.account_information = csv.reader(account_info)
-                self.output_info = csv.writer(new_account_info)
+        with open('account_information/account_information.csv', 'r') as account_info:
+            with open('account_information/new_account_information.csv', 'w', newline = '') as new_account_information:
+                account_information = csv.reader(account_info)
+                output_account_information = csv.writer(new_account_information)
                 
-                for row in self.account_information:
-                    if row[0] == self.new_account_information[0] and row[1] == self.new_account_information[1]:
-                        self.output_info.writerow(self.new_account_information)
+                for row in account_information:
+                    if row[0] == add_new_account_information[0] and row[1] == add_new_account_information[1]:
+                        output_account_information.writerow(add_new_account_information)
                     else:
-                        self.output_info.writerow(row)
+                        output_account_information.writerow(row)
         
-        if os.path.exists(self.file_path_remove):
-            os.remove(self.file_path_remove)
+        file_path_remove = 'account_information/account_information.csv'
+        if os.path.exists(file_path_remove):
+            os.remove(file_path_remove)
         os.rename('account_information/new_account_information.csv', 'account_information/account_information.csv')
         
         self.login_screen()
@@ -165,7 +168,7 @@ class Logic(Banking_Interface, Sign_Up):
         self.BANKIF_withdraw_button.setStyleSheet("background-color: rgb(27, 48, 53); border:0 solid; color:white")
         self.BANKIF_deposit_button.setStyleSheet("background-color: rgb(27, 48, 53); border:0 solid; color:white")
         
-        # Hides signup interface by default
+        # Hides sign up interface by default
         self.SIGNUP_background.setVisible(False)
         self.SIGNUP_backtologin.setVisible(False)
         self.SIGNUP_cardnumber_entry.setVisible(False)

@@ -11,10 +11,9 @@ class Banking_Interface(QMainWindow, Ui_ATM_Main):
     
     TRANSLATE = QtCore.QCoreApplication.translate
     
-    
     def __init__(self):
         '''
-        Method to set default values for Banking_Interface object.
+        Initializes Banking_Interface object.
         '''
         
         QMainWindow.__init__(self)
@@ -51,8 +50,8 @@ class Banking_Interface(QMainWindow, Ui_ATM_Main):
         self.BANKIF_welcome_label.setVisible(True)
         
         with open('account_information/account_information.csv', 'r+') as account_info:
-            self.account_information = csv.reader(account_info)
-            for row in self.account_information:
+            account_information = csv.reader(account_info)
+            for row in account_information:
                 if row[0] == self.card_number:
                     self.balance = float(row[2])
             
@@ -90,6 +89,7 @@ class Banking_Interface(QMainWindow, Ui_ATM_Main):
         
         try:
             self.amount = float(self.amount)
+            
             if self.amount <= 0:
                 raise ValueError
         except ValueError:
@@ -134,14 +134,15 @@ class Banking_Interface(QMainWindow, Ui_ATM_Main):
         
         try:
             self.amount = float(self.amount)
-            if self.amount < 0:
+            
+            if self.amount <= 0:
                 raise ValueError
             elif self.balance - self.amount < 0:
                 raise NameError
         except ValueError:
             self.BANKIF_balance_error.setText(self.TRANSLATE("ATM_Main", "<html><head/><body><p><span style=\" font-size:12pt; color:#640000;\">Amount must be numeric and greater than 0.</span></p></body></html>"))
         except NameError:
-            self.BANKIF_balance_error.setText(self.TRANSLATE("ATM_Main", "<html><head/><body><p><span style=\" font-size:12pt; color:#640000;\">Cannot withdraw more than balance.</span></p></body></html>"))
+            self.BANKIF_balance_error.setText(self.TRANSLATE("ATM_Main", "<html><head/><body><p><span style=\" font-size:12pt; color:#640000;\">Cannot withdraw more than available balance.</span></p></body></html>"))
         else:
             self.balance -= self.amount
             

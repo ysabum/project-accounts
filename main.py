@@ -1,8 +1,5 @@
-# pyuic6 -x "D:\Documents\```GitHub\CIST 1620\PROJECT\accounts\accounts_gui.ui" -o "D:\Documents\```GitHub\CIST 1620\PROJECT\accounts\gui.py"
-# pyside6-rcc "D:\Documents\```GitHub\CIST 1620\PROJECT\accounts\graphics\resources.qrc" -o "D:\Documents\```GitHub\CIST 1620\PROJECT\accounts\graphics\resources.py"
-# from PyQt6 import QtCore
-
 from logic import *
+import sys
 
 def main():   
     application = QApplication([])
@@ -11,7 +8,7 @@ def main():
     window.setWindowIcon(QtGui.QIcon(":/ATM_graphics/atm_cash-point.png"))
     window.show()
     application.exec()
-    
+    sys.exit()
     
 if __name__ == '__main__':
     main()
