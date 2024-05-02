@@ -26,6 +26,13 @@ class Sign_Up(QMainWindow, Ui_ATM_Main):
         Switches to the sign up interface.
         '''
         
+        self.setTabOrder(self.SIGNUP_username_entry, self.SIGNUP_password_entry)
+        self.setTabOrder(self.SIGNUP_password_entry, self.SIGNUP_first_name_entry)
+        self.setTabOrder(self.SIGNUP_first_name_entry, self.SIGNUP_last_name_entry)
+        self.setTabOrder(self.SIGNUP_last_name_entry, self.SIGNUP_cardnumber_entry)
+        self.setTabOrder(self.SIGNUP_cardnumber_entry, self.SIGNUP_pin_entry)
+        self.setTabOrder(self.SIGNUP_pin_entry, self.SIGNUP_deposit_entry)
+        
         # Hides main login screen
         self.ATM_ad.setVisible(False)
         self.ATM_forget_login_label.setVisible(False)
