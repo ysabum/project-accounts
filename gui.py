@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'D:\Documents\```GitHub\CIST 1620\PROJECT\accounts\accounts_gui.ui'
+# Form implementation generated from reading ui file 'D:\Documents\```GitHub\CIST 1620\PROJECT\project-accounts\accounts_gui.ui'
 #
 # Created by: PyQt6 UI code generator 6.7.0
 #
@@ -14,6 +14,7 @@ class Ui_ATM_Main(object):
         ATM_Main.setObjectName("ATM_Main")
         ATM_Main.resize(1000, 750)
         ATM_Main.setMinimumSize(QtCore.QSize(1000, 750))
+        ATM_Main.setMaximumSize(QtCore.QSize(1000, 750))
         ATM_Main.setBaseSize(QtCore.QSize(1000, 750))
         self.ATM_background = QtWidgets.QLabel(parent=ATM_Main)
         self.ATM_background.setGeometry(QtCore.QRect(0, 0, 1000, 750))
