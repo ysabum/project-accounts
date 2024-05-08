@@ -382,7 +382,7 @@ class Ui_ATM_Main(object):
         self.BANKIF_submit_button_deposit.setText(_translate("ATM_Main", "Submit"))
         self.BANKIF_submit_button_withdraw.setText(_translate("ATM_Main", "Submit"))
         self.BANKIF_balance_error.setText(_translate("ATM_Main", "<html><head/><body><p><span style=\" font-size:12pt; font-weight:600; color:#640000;\">Amount must be numeric and greater than 0.</span></p></body></html>"))
-        self.SIGNUP_signup_message.setText(_translate("ATM_Main", "<html><head/><body><p align=\"center\"><span style=\" font-size:16pt; color:#ffffff;\">Let\'s setup your online access.</span></p></body></html>"))
+        self.SIGNUP_signup_message.setText(_translate("ATM_Main", "<html><head/><body><p align=\"center\"><span style=\" font-size:16pt; color:#ffffff;\">Let\'s set up your online access.</span></p></body></html>"))
         self.SIGNUP_username_label.setText(_translate("ATM_Main", "<html><head/><body><p><span style=\" font-size:12pt; color:#ffffff;\">Username</span></p></body></html>"))
         self.SIGNUP_password_label.setText(_translate("ATM_Main", "<html><head/><body><p><span style=\" font-size:12pt; color:#ffffff;\">Password</span></p></body></html>"))
         self.SIGNUP_cardnumber_label.setText(_translate("ATM_Main", "<html><head/><body><p><span style=\" font-size:12pt; color:#ffffff;\">Card Number</span></p></body></html>"))
