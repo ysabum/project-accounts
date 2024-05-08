@@ -232,31 +232,6 @@
     <bool>false</bool>
    </property>
   </widget>
-  <widget class="QLabel" name="ATM_forget_login_label">
-   <property name="geometry">
-    <rect>
-     <x>100</x>
-     <y>520</y>
-     <width>301</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <weight>50</weight>
-     <bold>false</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Forgot your password?&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-   </property>
-   <property name="scaledContents">
-    <bool>false</bool>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
-   </property>
-  </widget>
   <widget class="QLabel" name="ATM_ad">
    <property name="geometry">
     <rect>
@@ -944,7 +919,6 @@ QPushButton:hover {color: rgb(255, 255, 255);}</string>
   <zorder>ATM_login_password_label</zorder>
   <zorder>ATM_login_username_entry</zorder>
   <zorder>ATM_login_password_entry</zorder>
-  <zorder>ATM_forget_login_label</zorder>
   <zorder>ATM_ad</zorder>
   <zorder>ATM_login_error_blankForm</zorder>
   <zorder>BANKIF_balance_label</zorder>
