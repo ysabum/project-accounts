@@ -4,7 +4,7 @@ import sys
 def main():   
     application = QApplication([])
     window = Logic()
-    window.setWindowTitle('ATM')
+    window.setWindowTitle('EEOBS ATM')
     window.setWindowIcon(QtGui.QIcon(":/ATM_graphics/atm_cash-point.png"))
     window.show()
     application.exec()
