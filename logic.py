@@ -53,8 +53,6 @@ class Logic(Banking_Interface, Sign_Up):
         self.SIGNUP_signup_message.setVisible(False)
         self.SIGNUP_username_entry.setVisible(False)
         self.SIGNUP_username_label.setVisible(False)
-        self.ATM_forget_login_label.setVisible(False) ### This is an unused asset.
-        
         
         # Button events
         self.ATM_signin_button.clicked.connect(lambda:self.submit())
@@ -62,7 +60,7 @@ class Logic(Banking_Interface, Sign_Up):
         
         self.BANKIF_deposit_button.clicked.connect(lambda:self.deposit())
         self.BANKIF_withdraw_button.clicked.connect(lambda:self.withdraw())
-        self.BANKIF_logout_button.clicked.connect(lambda:self.logout())
+        self.BANKIF_logout_button.clicked.connect(lambda:self.login_screen())
         
         self.BANKIF_submit_button_deposit.clicked.connect(lambda:self.deposit_submit())
         self.BANKIF_submit_button_withdraw.clicked.connect(lambda:self.withdraw_submit())
@@ -81,6 +79,7 @@ class Logic(Banking_Interface, Sign_Up):
         
         if self.username == '' or self.password == '':
             self.ATM_login_error_blankForm.setText(self.TRANSLATE("ATM_Main", "<html><head/><body><p><span style=\" font-size:9pt; color:#a10000;\">A username and password must be entered.</span></p></body></html>"))
+        
         else:
             self.ATM_login_error_blankForm.setText('')
 
@@ -98,35 +97,9 @@ class Logic(Banking_Interface, Sign_Up):
                         self.pin = row[5]
                         
                         self.online_bank()
+                    
                     else:
                         self.ATM_login_error_blankForm.setText(self.TRANSLATE("ATM_Main", "<html><head/><body><p><span style=\" font-size:9pt; color:#a10000;\">Incorrect username or password.</span></p></body></html>"))
-        
-    
-    def logout(self) -> None:
-        '''
-        Method called when user clicks the logout button.
-        Saves changes made to balance and updates account_information.csv.
-        '''
-        
-        add_new_account_information = [self.card_number, self.pin, f'{self.balance:.2f}']
-        
-        with open('account_information/account_information.csv', 'r') as account_info:
-            with open('account_information/new_account_information.csv', 'w', newline = '') as new_account_information:
-                account_information = csv.reader(account_info)
-                output_account_information = csv.writer(new_account_information)
-                
-                for row in account_information:
-                    if row[0] == add_new_account_information[0] and row[1] == add_new_account_information[1]:
-                        output_account_information.writerow(add_new_account_information)
-                    else:
-                        output_account_information.writerow(row)
-        
-        file_path_remove = 'account_information/account_information.csv'
-        if os.path.exists(file_path_remove):
-            os.remove(file_path_remove)
-        os.rename('account_information/new_account_information.csv', 'account_information/account_information.csv')
-        
-        self.login_screen()
         
         
     def login_screen(self) -> None:

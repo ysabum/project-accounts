@@ -2,6 +2,7 @@ from PyQt6.QtWidgets import *
 from graphics.resources import *
 from gui import *
 import csv
+import os
 
 class Banking_Interface(QMainWindow, Ui_ATM_Main):
     '''
@@ -28,7 +29,6 @@ class Banking_Interface(QMainWindow, Ui_ATM_Main):
     
         # Hides main login screen
         self.ATM_ad.setVisible(False)
-        self.ATM_forget_login_label.setVisible(False)
         self.ATM_login_background.setVisible(False)
         self.ATM_login_error_blankForm.setVisible(False)
         self.ATM_login_label.setVisible(False)
@@ -51,6 +51,7 @@ class Banking_Interface(QMainWindow, Ui_ATM_Main):
         
         with open('account_information/account_information.csv', 'r+') as account_info:
             account_information = csv.reader(account_info)
+            
             for row in account_information:
                 if row[0] == self.card_number:
                     self.balance = float(row[2])
@@ -92,13 +93,34 @@ class Banking_Interface(QMainWindow, Ui_ATM_Main):
             
             if self.amount <= 0:
                 raise ValueError
+        
         except ValueError:
             self.BANKIF_balance_error.setText(self.TRANSLATE("ATM_Main", "<html><head/><body><p><span style=\" font-size:12pt; color:#640000;\">Amount must be numeric and greater than 0.</span></p></body></html>"))
+        
         else:
             self.balance += self.amount
             
             self.BANKIF_balance_error.setText(self.TRANSLATE("ATM_Main", f"<html><head/><body><p><span style=\" font-size:12pt; color:#640000;\">Deposited {self.amount:.2f}.</span></p></body></html>"))
             self.BANKIF_balance_label.setText(self.TRANSLATE("ATM_Main", f"<html><head/><body><p><span style=\" font-size:14pt; color:#ffffff;\">Your balance is ${self.balance:.2f}</span></p></body></html>"))
+            
+            add_new_account_information = [self.card_number, self.pin, f'{self.balance:.2f}']
+        
+            with open('account_information/account_information.csv', 'r') as account_info:
+                with open('account_information/new_account_information.csv', 'w', newline = '') as new_account_information:
+                    account_information = csv.reader(account_info)
+                    output_account_information = csv.writer(new_account_information)
+                    
+                    for row in account_information:
+                        if row[0] == add_new_account_information[0] and row[1] == add_new_account_information[1]:
+                            output_account_information.writerow(add_new_account_information)
+                        
+                        else:
+                            output_account_information.writerow(row)
+            
+            file_path_remove = 'account_information/account_information.csv'
+            if os.path.exists(file_path_remove):
+                os.remove(file_path_remove)
+            os.rename('account_information/new_account_information.csv', 'account_information/account_information.csv')
        
        
     def withdraw(self) -> None:
@@ -137,14 +159,37 @@ class Banking_Interface(QMainWindow, Ui_ATM_Main):
             
             if self.amount <= 0:
                 raise ValueError
+            
             elif self.balance - self.amount < 0:
                 raise NameError
+            
         except ValueError:
             self.BANKIF_balance_error.setText(self.TRANSLATE("ATM_Main", "<html><head/><body><p><span style=\" font-size:12pt; color:#640000;\">Amount must be numeric and greater than 0.</span></p></body></html>"))
+            
         except NameError:
             self.BANKIF_balance_error.setText(self.TRANSLATE("ATM_Main", "<html><head/><body><p><span style=\" font-size:12pt; color:#640000;\">Cannot withdraw more than available balance.</span></p></body></html>"))
+        
         else:
             self.balance -= self.amount
             
             self.BANKIF_balance_error.setText(self.TRANSLATE("ATM_Main", f"<html><head/><body><p><span style=\" font-size:12pt; color:#640000;\">Withdrew {self.amount:.2f}.</span></p></body></html>"))
             self.BANKIF_balance_label.setText(self.TRANSLATE("ATM_Main", f"<html><head/><body><p><span style=\" font-size:14pt; color:#ffffff;\">Your balance is ${self.balance:.2f}</span></p></body></html>"))
+            
+            add_new_account_information = [self.card_number, self.pin, f'{self.balance:.2f}']
+        
+            with open('account_information/account_information.csv', 'r') as account_info:
+                with open('account_information/new_account_information.csv', 'w', newline = '') as new_account_information:
+                    account_information = csv.reader(account_info)
+                    output_account_information = csv.writer(new_account_information)
+                    
+                    for row in account_information:
+                        if row[0] == add_new_account_information[0] and row[1] == add_new_account_information[1]:
+                            output_account_information.writerow(add_new_account_information)
+                        
+                        else:
+                            output_account_information.writerow(row)
+            
+            file_path_remove = 'account_information/account_information.csv'
+            if os.path.exists(file_path_remove):
+                os.remove(file_path_remove)
+            os.rename('account_information/new_account_information.csv', 'account_information/account_information.csv')

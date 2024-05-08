@@ -35,7 +35,6 @@ class Sign_Up(QMainWindow, Ui_ATM_Main):
         
         # Hides main login screen
         self.ATM_ad.setVisible(False)
-        self.ATM_forget_login_label.setVisible(False)
         self.ATM_login_background.setVisible(False)
         self.ATM_login_error_blankForm.setVisible(False)
         self.ATM_login_label.setVisible(False)
@@ -86,19 +85,24 @@ class Sign_Up(QMainWindow, Ui_ATM_Main):
         
         if self.signup_username == '' or self.signup_password == '' or self.signup_first_name == '' or self.signup_last_name == '' or self.signup_cardnumber == '' or self.signup_pin == '' or self.signup_deposit == '':
             self.SIGNUP_error_label.setText(self.TRANSLATE("ATM_Main", "<html><head/><body><p><span style=\" font-size:12pt; color:#640000;\">Please fill out all forms.</span></p></body></html>"))
+        
         else:
             if len(self.signup_cardnumber) != 16 or str(self.signup_cardnumber).isnumeric() == False:
                 self.SIGNUP_error_label.setText(self.TRANSLATE("ATM_Main", "<html><head/><body><p><span style=\" font-size:12pt; color:#640000;\">Please input an accurate card number. Must be a 16 digit number.</span></p></body></html>"))
+            
             elif len(self.signup_pin) != 4 or str(self.signup_pin).isnumeric() == False:
                 self.SIGNUP_error_label.setText(self.TRANSLATE("ATM_Main", "<html><head/><body><p><span style=\" font-size:12pt; color:#640000;\">Please input an accurate pin number. Must be a 4 digit number.</span></p></body></html>"))
+            
             else:
                 try:
                     self.signup_deposit =  float(self.signup_deposit)
                     
-                    if self.signup_deposit <= 0:
+                    if self.signup_deposit < 0:
                         raise ValueError
+                
                 except ValueError:
-                    self.SIGNUP_error_label.setText(self.TRANSLATE("ATM_Main", "<html><head/><body><p><span style=\" font-size:12pt; color:#640000;\">Deposit amount must be numeric and greater than 0.</span></p></body></html>"))
+                    self.SIGNUP_error_label.setText(self.TRANSLATE("ATM_Main", "<html><head/><body><p><span style=\" font-size:12pt; color:#640000;\">Deposit amount must be a positive number.</span></p></body></html>"))
+                
                 else:
                     duplicate_check = []
                     
@@ -112,8 +116,10 @@ class Sign_Up(QMainWindow, Ui_ATM_Main):
                     
                     if self.signup_username in duplicate_check:
                         self.SIGNUP_error_label.setText(self.TRANSLATE("ATM_Main", "<html><head/><body><p><span style=\" font-size:12pt; color:#640000;\">Username already exists. Please use another username.</span></p></body></html>"))
+                    
                     elif self.signup_cardnumber in duplicate_check:
                         self.SIGNUP_error_label.setText(self.TRANSLATE("ATM_Main", "<html><head/><body><p><span style=\" font-size:12pt; color:#640000;\">Card number is associated with another user's account. Please use another card number.</span></p></body></html>"))
+                    
                     else:
                         with open('account_information/logins.csv', 'a', newline = '') as logins:
                             logins_information = [self.signup_username, self.signup_password, self.signup_first_name, self.signup_last_name, self.signup_cardnumber, self.signup_pin]
