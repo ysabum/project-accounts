@@ -1,8 +1,8 @@
 from PyQt6.QtWidgets import *
 from graphics.resources import *
 from gui import *
-from logic_bankingIF import *
-from logic_signup import *
+from logic_bankingInterface import *
+from logic_signUp import *
 
 import csv
 import os
@@ -141,7 +141,7 @@ class Logic(Banking_Interface, Sign_Up):
         self.BANKIF_withdraw_button.setStyleSheet("background-color: rgb(27, 48, 53); border:0 solid; color:white")
         self.BANKIF_deposit_button.setStyleSheet("background-color: rgb(27, 48, 53); border:0 solid; color:white")
         
-        # Hides sign up interface by default
+        # Hides sign up interface by default and clears entries
         self.SIGNUP_background.setVisible(False)
         self.SIGNUP_backtologin.setVisible(False)
         self.SIGNUP_cardnumber_entry.setVisible(False)
@@ -163,3 +163,10 @@ class Logic(Banking_Interface, Sign_Up):
         self.SIGNUP_username_entry.setVisible(False)
         self.SIGNUP_username_label.setVisible(False)
         
+        self.SIGNUP_username_entry.clear()
+        self.SIGNUP_password_entry.clear()
+        self.SIGNUP_first_name_entry.clear()
+        self.SIGNUP_last_name_entry.clear()
+        self.SIGNUP_cardnumber_entry.clear()
+        self.SIGNUP_pin_entry.clear()
+        self.SIGNUP_deposit_entry.clear()
