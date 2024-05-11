@@ -12,7 +12,7 @@ class Banking_Interface(QMainWindow, Ui_ATM_Main):
     
     TRANSLATE = QtCore.QCoreApplication.translate
     
-    def __init__(self):
+    def __init__(self) -> None:
         '''
         Initializes Banking_Interface object.
         '''
